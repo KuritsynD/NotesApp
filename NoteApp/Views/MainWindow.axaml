@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:NoteApp.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="NoteApp.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Заметки"
+        Width="400" Height="600">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <StackPanel>
+        <TextBlock Text="Мои Заметки" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+        
+        <!-- Поле для ввода новой заметки -->
+        <TextBox x:Name="NoteInput" Width="350" Height="50" Watermark="Введите новую заметку..." HorizontalAlignment="Center" Margin="0,0,0,10"/>
+        
+        <!-- Кнопка для добавления новой заметки -->
+        <Button Content="Добавить Заметку" Width="150" Height="35" HorizontalAlignment="Center" Click="OnAddNoteClick"/>
+        
+        <!-- Список для отображения заметок -->
+        <ListBox ItemsSource="{Binding Notes}" Margin="10,10,10,10" Height="400">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding}" Width="250"/>
+                        <Button Content="Удалить" Click="OnDeleteNoteClick" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </StackPanel>
+
+</Window>
